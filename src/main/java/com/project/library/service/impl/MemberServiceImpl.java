@@ -6,11 +6,14 @@ import com.project.library.model.Member;
 import com.project.library.repository.MemberRepository;
 import com.project.library.security.jwt.JwtTokenProvider;
 import com.project.library.service.MemberService;
+import com.project.library.util.CurrentUserUtil;
 import com.project.library.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.project.library.security.jwt.JwtTokenProvider.TOKEN_VALIDATION_SECOND;
@@ -23,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisUtil redisUtil;
+    private final CurrentUserUtil currentUserUtil;
 
     @Override
     public void signUp(MemberDto memberDto) {
@@ -35,16 +39,25 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void signin(SigninDto signinDto) {
-        Member findMember = memberRepository.findById(signinDto.getId()).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+    public Map<String,String> signin(SigninDto signinDto) {
+        Member findMember = memberRepository.findById(signinDto.getId());
         if(!passwordEncoder.matches(signinDto.getPassword(), findMember.getPassword())) throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
 
-        jwtTokenProvider.createToken(signinDto.getId());
+        String token = jwtTokenProvider.createToken(signinDto.getId());
         String refreshToken = jwtTokenProvider.createRefreshToken();
 
         redisUtil.deleteData(signinDto.getId());
         redisUtil.setDataExpire(signinDto.getId(),refreshToken,TOKEN_VALIDATION_SECOND * 24 * 180);
+
+        Map<String,String> response = new HashMap<>();
+        response.put("AccessToken", token);
+        response.put("RefreshToken", refreshToken);
+
+        return response;
     }
 
-
+    @Override
+    public void logout() {
+        redisUtil.deleteData(currentUserUtil.getCurrentUser().getId());
+    }
 }
