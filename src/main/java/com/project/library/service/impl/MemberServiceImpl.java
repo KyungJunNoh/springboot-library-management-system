@@ -50,8 +50,8 @@ public class MemberServiceImpl implements MemberService {
         redisUtil.setDataExpire(signinDto.getId(),refreshToken,TOKEN_VALIDATION_SECOND * 24 * 180);
 
         Map<String,String> response = new HashMap<>();
-        response.put("AccessToken", token);
-        response.put("RefreshToken", refreshToken);
+        response.put("AccessToken", "Bearer " + token);
+        response.put("RefreshToken", "Bearer " + refreshToken);
 
         return response;
     }

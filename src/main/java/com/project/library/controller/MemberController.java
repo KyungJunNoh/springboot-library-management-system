@@ -44,6 +44,4 @@ public class MemberController {
         memberService.logout();
         return responseService.commonResult();
     }
-
-
 }
