@@ -1,5 +1,7 @@
 package com.project.library.controller;
 
+import com.project.library.Response.CommonResult;
+import com.project.library.Response.ResponseService;
 import com.project.library.dto.MemberDto;
 import com.project.library.service.MemberService;
 import io.swagger.annotations.ApiOperation;
@@ -16,10 +18,13 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    private final ResponseService responseService;
+
     @PostMapping("/signup")
     @ApiOperation(value = "회원가입")
-    public void signup(@RequestBody MemberDto memberDto){
+    public CommonResult signup(@RequestBody MemberDto memberDto){
         memberService.signUp(memberDto);
+        return responseService.commonResult();
     }
 
 }
