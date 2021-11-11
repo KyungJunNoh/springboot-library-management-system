@@ -1,12 +1,13 @@
 package com.project.library.controller;
 
 import com.project.library.dto.BookAddDto;
+import com.project.library.model.Book;
 import com.project.library.service.LibraryManagementService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,5 +19,10 @@ public class LibraryManagementController {
     @PostMapping("/add")
     public void bookAdd(@RequestBody BookAddDto bookAddDto){
         libraryManagementService.bookAdd(bookAddDto);
+    }
+
+    @GetMapping("/findall")
+    public Map<Long, Book> findBookAll(){
+        return libraryManagementService.findAll();
     }
 }
