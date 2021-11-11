@@ -1,6 +1,8 @@
 package com.project.library.service.impl;
 
 import com.project.library.dto.BookAddDto;
+import com.project.library.dto.BookDeleteDto;
+import com.project.library.dto.FindBookDto;
 import com.project.library.model.Book;
 import com.project.library.repository.BookRepository;
 import com.project.library.service.LibraryManagementService;
@@ -23,7 +25,7 @@ public class LibraryManagementServiceImpl implements LibraryManagementService {
     }
 
     @Override
-    public Map<Long,Book> findAll() {
+    public Map<Long,Book> findBookAll() {
         List<Book> books = bookRepository.findAll();
         if(books.isEmpty()) throw new IllegalArgumentException("도서 목록에 도서가 없습니다.");
         Map<Long,Book> map = new HashMap<>();
@@ -31,5 +33,21 @@ public class LibraryManagementServiceImpl implements LibraryManagementService {
             map.put(book.getIdx(),book);
         }
         return map;
+    }
+
+    @Override
+    public Map<Long, Book>
+    findBook(FindBookDto findBookDto) {
+        List<Book> findBook = bookRepository.findBookByTitle(findBookDto.getTitle());
+        if(findBook.isEmpty()) throw new IllegalArgumentException(findBookDto.getTitle() + " 도서를 찾을 수 없습니다.");
+        Map<Long,Book> map = new HashMap<>();
+        map.put(findBook.get(0).getIdx(),findBook.get(0));
+        return map;
+    }
+
+    @Override
+    public void delete(BookDeleteDto bookDeleteDto) {
+        if (bookRepository.findById(bookDeleteDto.getIdx()).isEmpty()) throw new IllegalArgumentException("해당 번호의 도서를 찾을 수 없습니다.");
+        bookRepository.deleteById(bookDeleteDto.getIdx());
     }
 }
