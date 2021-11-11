@@ -1,13 +1,14 @@
 package com.project.library.service.impl;
 
 import com.project.library.dto.BookAddDto;
-import com.project.library.dto.BookDeleteDto;
+import com.project.library.dto.BookUpdateDto;
 import com.project.library.dto.FindBookDto;
 import com.project.library.model.Book;
 import com.project.library.repository.BookRepository;
 import com.project.library.service.LibraryManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,9 +46,18 @@ public class LibraryManagementServiceImpl implements LibraryManagementService {
         return map;
     }
 
+    @Transactional
     @Override
-    public void delete(BookDeleteDto bookDeleteDto) {
-        if (bookRepository.findById(bookDeleteDto.getIdx()).isEmpty()) throw new IllegalArgumentException("해당 번호의 도서를 찾을 수 없습니다.");
-        bookRepository.deleteById(bookDeleteDto.getIdx());
+    public void update(Long idx, BookUpdateDto bookUpdateDto) {
+        Book book = bookRepository.findById(idx)
+                .orElseThrow(()-> new IllegalArgumentException("책이 존재하지 않습니다."));
+
+        book.updateBook(bookUpdateDto.getTitle(),bookUpdateDto.getAuthor());
+    }
+
+    @Override
+    public void delete(Long idx) {
+        if (bookRepository.findById(idx).isEmpty()) throw new IllegalArgumentException("해당 번호의 도서를 찾을 수 없습니다.");
+        bookRepository.deleteById(idx);
     }
 }

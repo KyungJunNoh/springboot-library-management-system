@@ -1,7 +1,7 @@
 package com.project.library.service;
 
 import com.project.library.dto.BookAddDto;
-import com.project.library.dto.BookDeleteDto;
+import com.project.library.dto.BookUpdateDto;
 import com.project.library.dto.FindBookDto;
 import com.project.library.model.Book;
 
@@ -12,5 +12,6 @@ public interface LibraryManagementService {
     void bookAdd(BookAddDto bookAddDto);
     Map<Long,Book> findBookAll();
     Map<Long,Book> findBook(FindBookDto findBookDto);
-    void delete(BookDeleteDto bookDeleteDto);
+    void update(Long idx, BookUpdateDto bookUpdateDto);
+    void delete(Long idx);
 }

@@ -30,4 +30,8 @@ public class Book {
     @Column(name = "registration_date", nullable = false)
     private LocalDate date;
 
+    public void updateBook(String title, String author){
+        this.title = title;
+        this.author = author;
+    }
 }

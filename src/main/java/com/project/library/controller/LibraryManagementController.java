@@ -1,7 +1,9 @@
 package com.project.library.controller;
 
+import com.project.library.Response.CommonResult;
+import com.project.library.Response.ResponseService;
 import com.project.library.dto.BookAddDto;
-import com.project.library.dto.BookDeleteDto;
+import com.project.library.dto.BookUpdateDto;
 import com.project.library.dto.FindBookDto;
 import com.project.library.model.Book;
 import com.project.library.service.LibraryManagementService;
@@ -17,11 +19,13 @@ import java.util.Map;
 public class LibraryManagementController {
 
     private final LibraryManagementService libraryManagementService;
+    private final ResponseService responseService;
 
     @ApiOperation("도서 목록에 책 추가")
     @PostMapping("/add")
-    public void bookAdd(@RequestBody BookAddDto bookAddDto){
+    public CommonResult bookAdd(@RequestBody BookAddDto bookAddDto){
         libraryManagementService.bookAdd(bookAddDto);
+        return responseService.commonResult();
     }
 
     @ApiOperation("도서 목록에 책 전체 조회")
@@ -36,10 +40,17 @@ public class LibraryManagementController {
         return libraryManagementService.findBook(findBookDto);
     }
 
-    @ApiOperation("책 삭제")
-    @PostMapping("/delete")
-    public void delete(@RequestBody BookDeleteDto bookDeleteDto){
-        libraryManagementService.delete(bookDeleteDto);
+    @ApiOperation("책 정보 수정")
+    @PutMapping("/update/{idx}")
+    public CommonResult update(@PathVariable("idx") Long idx, @RequestBody BookUpdateDto bookUpdateDto){
+        libraryManagementService.update(idx,bookUpdateDto);
+        return responseService.commonResult();
     }
 
+    @ApiOperation("책 삭제")
+    @DeleteMapping("/delete/{idx}")
+    public CommonResult delete(@PathVariable("idx") Long idx){
+        libraryManagementService.delete(idx);
+        return responseService.commonResult();
+    }
 }

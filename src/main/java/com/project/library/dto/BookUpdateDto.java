@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookDeleteDto {
+public class BookUpdateDto {
 
-    private Long idx;
+    private String title;
+    private String author;
 }
