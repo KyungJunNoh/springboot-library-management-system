@@ -3,15 +3,14 @@ package com.project.library.controller;
 import com.project.library.Response.CommonResult;
 import com.project.library.Response.ResponseService;
 import com.project.library.dto.RentalBookDto;
+import com.project.library.dto.ReturnBookDto;
 import com.project.library.service.LibraryRentalService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +27,13 @@ public class LibraryRentalController {
     @ApiOperation(value = "도서 대출")
     public CommonResult rental(@RequestBody RentalBookDto rentalBookDto) {
         libraryRentalService.rental(rentalBookDto);
+        return responseService.commonResult();
+    }
+
+    @DeleteMapping("/returnbook")
+    @ApiOperation(value = "책 반납")
+    public CommonResult returnBook(@RequestBody ReturnBookDto returnBookDto){
+        libraryRentalService.returnBook(returnBookDto);
         return responseService.commonResult();
     }
 }
