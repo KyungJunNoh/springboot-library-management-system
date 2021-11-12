@@ -2,8 +2,10 @@ package com.project.library.controller;
 
 import com.project.library.Response.CommonResult;
 import com.project.library.Response.ResponseService;
+import com.project.library.dto.FindRentalBookDto;
 import com.project.library.dto.RentalBookDto;
 import com.project.library.dto.ReturnBookDto;
+import com.project.library.model.Rental;
 import com.project.library.service.LibraryRentalService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -11,6 +13,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,4 +40,11 @@ public class LibraryRentalController {
         libraryRentalService.returnBook(returnBookDto);
         return responseService.commonResult();
     }
+
+    @GetMapping("/findAllbook")
+    @ApiOperation(value = "책 대출 목록 조회")
+    public Map<Long, Rental> findAllRentalBook(){
+        return libraryRentalService.findRentalBook();
+    }
+
 }

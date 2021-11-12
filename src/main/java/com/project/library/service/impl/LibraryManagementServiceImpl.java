@@ -37,8 +37,7 @@ public class LibraryManagementServiceImpl implements LibraryManagementService {
     }
 
     @Override
-    public Map<Long, Book>
-    findBook(FindBookDto findBookDto) {
+    public Map<Long, Book> findBook(FindBookDto findBookDto) {
         List<Book> findBook = bookRepository.findBookByTitle(findBookDto.getTitle());
         if(findBook.isEmpty()) throw new IllegalArgumentException(findBookDto.getTitle() + " 도서를 찾을 수 없습니다.");
         Map<Long,Book> map = new HashMap<>();

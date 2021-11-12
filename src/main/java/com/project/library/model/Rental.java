@@ -18,11 +18,11 @@ public class Rental {
     @Column(name = "rental_idx")
     private Long idx;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_idx")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "book_idx")
     private Book book;
 
