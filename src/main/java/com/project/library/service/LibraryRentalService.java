@@ -10,5 +10,7 @@ import java.util.Map;
 public interface LibraryRentalService {
     void rental(RentalBookDto rentalBookDto);
     void returnBook(ReturnBookDto returnBookDto);
-    Map<Long, Rental> findRentalBook();
+    Map<Long, Rental> findAllRentalBook();
+    Map<Long, Rental> findRentalBook(Long idx);
+
 }

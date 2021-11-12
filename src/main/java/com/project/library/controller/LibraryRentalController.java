@@ -44,7 +44,12 @@ public class LibraryRentalController {
     @GetMapping("/findAllbook")
     @ApiOperation(value = "책 대출 목록 조회")
     public Map<Long, Rental> findAllRentalBook(){
-        return libraryRentalService.findRentalBook();
+        return libraryRentalService.findAllRentalBook();
     }
 
+    @PostMapping("/findbook/{id}")
+    @ApiOperation(value = "책 대출 목록 단일 조회")
+    public Map<Long, Rental> findRentalBook(@PathVariable("id")Long idx){
+        return libraryRentalService.findRentalBook(idx);
+    }
 }

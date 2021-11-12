@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -42,8 +43,9 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
     }
 
     @Override
-    public Map<Long,Rental> findRentalBook() {
+    public Map<Long,Rental> findAllRentalBook() {
         List<Rental> allBook = rentalRepository.findAll();
+        if(allBook.isEmpty()) throw new IllegalArgumentException("대출 이력이 없습니다.");
         Map<Long,Rental> map = new HashMap<>();
         for (Rental r : allBook) {
             map.put(r.getIdx(),r);
@@ -51,5 +53,13 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
         return map;
     }
 
+    @Override
+    public Map<Long, Rental> findRentalBook(Long idx) {
+        Rental findBook = rentalRepository.findById(idx)
+                .orElseThrow(() -> new IllegalArgumentException("대출 이력이 없습니다."));
+        Map<Long,Rental> map = new HashMap<>();
+        map.put(idx,findBook);
+        return map;
+    }
 
 }
