@@ -21,7 +21,7 @@ public class RentalBookDto {
                 .member(member)
                 .book(book)
                 .rental_date(LocalDate.now())
-                .return_date(LocalDate.of(2021,11,19))
+                .return_date(LocalDate.now().plusDays(7))
                 .build();
     }
 }
