@@ -32,7 +32,6 @@ public class CurrentUserUtil {
         } else{
             id = principal.toString();
         }
-        System.out.println(id + "3");
         return memberRepository.findById(id);
     }
 }
