@@ -2,6 +2,7 @@ package com.project.library.controller;
 
 import com.project.library.Response.CommonResult;
 import com.project.library.Response.ResponseService;
+import com.project.library.dto.ExtensionBook;
 import com.project.library.dto.FindRentalBookDto;
 import com.project.library.dto.RentalBookDto;
 import com.project.library.dto.ReturnBookDto;
@@ -41,8 +42,15 @@ public class LibraryRentalController {
         return responseService.commonResult();
     }
 
+    @PutMapping("/extension")
+    @ApiOperation(value = "책 반납일 연장")
+    public CommonResult extensionBook(@RequestBody ExtensionBook extensionBook){
+        libraryRentalService.extensionBook(extensionBook);
+        return responseService.commonResult();
+    }
+
     @GetMapping("/findAllbook")
-    @ApiOperation(value = "책 대출 목록 조회")
+    @ApiOperation(value = "책 대출 목록 전체 조회")
     public Map<Long, Rental> findAllRentalBook(){
         return libraryRentalService.findAllRentalBook();
     }

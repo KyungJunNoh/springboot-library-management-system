@@ -31,4 +31,8 @@ public class Rental {
 
     @Column(name = "return_date")
     private LocalDate return_date;
+
+    public void update(LocalDate return_date){
+        this.return_date = return_date;
+    }
 }

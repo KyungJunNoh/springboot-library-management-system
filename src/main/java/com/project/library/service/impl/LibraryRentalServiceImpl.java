@@ -1,5 +1,6 @@
 package com.project.library.service.impl;
 
+import com.project.library.dto.ExtensionBook;
 import com.project.library.dto.FindRentalBookDto;
 import com.project.library.dto.RentalBookDto;
 import com.project.library.dto.ReturnBookDto;
@@ -12,6 +13,7 @@ import com.project.library.service.LibraryRentalService;
 import com.project.library.util.CurrentUserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +44,14 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
         rentalRepository.deleteById(returnBookDto.getIdx());
     }
 
+    @Transactional
+    @Override
+    public void extensionBook(ExtensionBook extensionBook) {
+        Rental rental = rentalRepository.findById(extensionBook.getIdx())
+                .orElseThrow(() -> new IllegalArgumentException("대출 이력을 찾을 수 없습니다."));
+        rental.update(rental.getReturn_date().plusDays(7));
+    }
+
     @Override
     public Map<Long,Rental> findAllRentalBook() {
         List<Rental> allBook = rentalRepository.findAll();
@@ -61,5 +71,4 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
         map.put(idx,findBook);
         return map;
     }
-
 }
