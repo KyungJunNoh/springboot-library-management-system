@@ -1,4 +1,4 @@
-package com.project.library.Response;
+package com.project.library.response;
 
 import lombok.Getter;
 import org.springframework.stereotype.Service;
