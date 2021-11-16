@@ -1,7 +1,7 @@
 package com.project.library.controller;
 
-import com.project.library.Response.CommonResult;
-import com.project.library.Response.ResponseService;
+import com.project.library.response.CommonResult;
+import com.project.library.response.ResponseService;
 import com.project.library.dto.BookAddDto;
 import com.project.library.dto.BookUpdateDto;
 import com.project.library.dto.FindBookDto;

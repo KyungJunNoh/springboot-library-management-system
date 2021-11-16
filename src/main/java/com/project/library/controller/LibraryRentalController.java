@@ -1,14 +1,12 @@
 package com.project.library.controller;
 
-import com.project.library.Response.CommonResult;
-import com.project.library.Response.ResponseService;
+import com.project.library.response.CommonResult;
+import com.project.library.response.ResponseService;
 import com.project.library.dto.ExtensionBook;
-import com.project.library.dto.FindRentalBookDto;
 import com.project.library.dto.RentalBookDto;
 import com.project.library.dto.ReturnBookDto;
 import com.project.library.model.Rental;
 import com.project.library.service.LibraryRentalService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -19,13 +17,13 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1")
+@RequestMapping("/v1/rental")
 public class LibraryRentalController {
 
     private final LibraryRentalService libraryRentalService;
     private final ResponseService responseService;
 
-    @PostMapping("/rental")
+    @PostMapping("/")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header"),
     })

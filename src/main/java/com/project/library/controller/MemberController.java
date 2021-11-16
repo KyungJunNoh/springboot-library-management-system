@@ -1,7 +1,7 @@
 package com.project.library.controller;
 
-import com.project.library.Response.CommonResult;
-import com.project.library.Response.ResponseService;
+import com.project.library.response.CommonResult;
+import com.project.library.response.ResponseService;
 import com.project.library.dto.MemberDto;
 import com.project.library.dto.SigninDto;
 import com.project.library.service.MemberService;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/member")
 public class MemberController {
 
     private final MemberService memberService;
