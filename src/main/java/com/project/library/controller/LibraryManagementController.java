@@ -40,14 +40,14 @@ public class LibraryManagementController {
         return libraryManagementService.findBook(findBookDto);
     }
 
-    @ApiOperation("책 정보 수정")
+    @ApiOperation("도서 정보 수정")
     @PutMapping("/update/{idx}")
     public CommonResult update(@PathVariable("idx") Long idx, @RequestBody BookUpdateDto bookUpdateDto){
         libraryManagementService.update(idx,bookUpdateDto);
         return responseService.commonResult();
     }
 
-    @ApiOperation("책 삭제")
+    @ApiOperation("도서 삭제")
     @DeleteMapping("/delete/{idx}")
     public CommonResult delete(@PathVariable("idx") Long idx){
         libraryManagementService.delete(idx);
