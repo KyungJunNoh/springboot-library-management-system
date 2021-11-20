@@ -2,6 +2,7 @@ package com.project.library.service.impl;
 
 import com.project.library.dto.MemberDto;
 import com.project.library.dto.SigninDto;
+import com.project.library.dto.UpdatePasswordDto;
 import com.project.library.model.Member;
 import com.project.library.repository.MemberRepository;
 import com.project.library.security.jwt.JwtTokenProvider;
@@ -9,8 +10,10 @@ import com.project.library.service.MemberService;
 import com.project.library.util.CurrentUserUtil;
 import com.project.library.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.Update;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,6 +57,15 @@ public class MemberServiceImpl implements MemberService {
         response.put("RefreshToken", "Bearer " + refreshToken);
 
         return response;
+    }
+
+    @Transactional
+    @Override
+    public void update(UpdatePasswordDto updatePasswordDto) {
+        Member findUser = memberRepository.findById(currentUserUtil.getCurrentUserId());
+        if(!passwordEncoder.matches(updatePasswordDto.getOldPassword(), findUser.getPassword())) throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        String encodingPassword = passwordEncoder.encode(updatePasswordDto.getNewPassword());
+        findUser.updatePassword(encodingPassword);
     }
 
     @Override
