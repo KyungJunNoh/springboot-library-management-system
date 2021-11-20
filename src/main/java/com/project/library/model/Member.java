@@ -1,5 +1,6 @@
 package com.project.library.model;
 
+import com.project.library.dto.UpdatePasswordDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,10 @@ public class Member implements UserDetails {
 
     @Column(name = "member_callNum", nullable = false, unique = true)
     private String callNum;
+
+    public void updatePassword(String newPassword){
+        this.password = newPassword;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -65,5 +70,16 @@ public class Member implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "idx=" + idx +
+                ", id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", callNum='" + callNum + '\'' +
+                '}';
     }
 }
