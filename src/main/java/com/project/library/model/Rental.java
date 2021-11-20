@@ -22,7 +22,7 @@ public class Rental {
     @JoinColumn(name = "member_idx")
     private Member member;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "book_idx")
     private Book book;
 
