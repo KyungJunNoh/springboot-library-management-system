@@ -58,4 +58,10 @@ public class LibraryRentalController {
     public Map<Long, Rental> findRentalBook(@PathVariable("id")Long idx){
         return libraryRentalService.findRentalBook(idx);
     }
+
+    @PostMapping("/findBook/bookname/{book}")
+    @ApiOperation(value = "책 이름으로 대출 정보 조회")
+    public Map<Long, Rental> findRentalBookByBookName(@PathVariable("book")String book){
+        return libraryRentalService.findRentalBookByBookName(book);
+    }
 }
