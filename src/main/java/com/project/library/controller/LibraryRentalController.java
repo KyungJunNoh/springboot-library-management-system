@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -61,7 +62,7 @@ public class LibraryRentalController {
 
     @PostMapping("/findBook/bookname/{book}")
     @ApiOperation(value = "책 이름으로 대출 정보 조회")
-    public Map<Long, Rental> findRentalBookByBookName(@PathVariable("book")String book){
+    public List<Rental> findRentalBookByBookName(@PathVariable("book")String book){
         return libraryRentalService.findRentalBookByBookName(book);
     }
 }
