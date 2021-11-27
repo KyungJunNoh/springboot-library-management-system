@@ -26,14 +26,10 @@ public class LibraryManagementServiceImpl implements LibraryManagementService {
     }
 
     @Override
-    public Map<Long,Book> findBookAll() {
+    public List<Book> findBookAll() {
         List<Book> books = bookRepository.findAll();
         if(books.isEmpty()) throw new IllegalArgumentException("도서 목록에 도서가 없습니다.");
-        Map<Long,Book> map = new HashMap<>();
-        for(Book book : books){
-            map.put(book.getIdx(),book);
-        }
-        return map;
+        return books;
     }
 
     @Override

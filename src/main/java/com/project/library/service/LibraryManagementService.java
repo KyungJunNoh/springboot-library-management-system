@@ -5,11 +5,12 @@ import com.project.library.dto.BookUpdateDto;
 import com.project.library.dto.FindBookDto;
 import com.project.library.model.Book;
 
+import java.util.List;
 import java.util.Map;
 
 public interface LibraryManagementService {
     void bookAdd(BookAddDto bookAddDto);
-    Map<Long,Book> findBookAll();
+    List<Book> findBookAll();
     Map<Long,Book> findBook(FindBookDto findBookDto);
     void update(Long idx, BookUpdateDto bookUpdateDto);
     void delete(Long idx);
