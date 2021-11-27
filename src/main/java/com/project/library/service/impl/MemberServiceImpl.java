@@ -10,14 +10,13 @@ import com.project.library.service.MemberService;
 import com.project.library.util.CurrentUserUtil;
 import com.project.library.util.RedisUtil;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+
 
 import static com.project.library.security.jwt.JwtTokenProvider.TOKEN_VALIDATION_SECOND;
 
@@ -43,9 +42,29 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Map<String,String> signin(SigninDto signinDto) {
-        Member findMember = memberRepository.findById(signinDto.getId());
-        if(!passwordEncoder.matches(signinDto.getPassword(), findMember.getPassword())) throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        memberRepository.findById(signinDto.getId())
+                .filter(user -> passwordEncoder.matches(signinDto.getPassword(),user.getPassword()))
+                .orElseThrow(() -> new  IllegalArgumentException("아이디 또는 비밀번호가 잘못되었습니다."));
 
+        return createToken(signinDto);
+    }
+
+    @Transactional
+    @Override
+    public void update(UpdatePasswordDto updatePasswordDto) {
+        Member user = currentUserUtil.getCurrentUser();
+        if(!passwordEncoder.matches(updatePasswordDto.getOldPassword(), user.getPassword())) throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        String encodingPassword = passwordEncoder.encode(updatePasswordDto.getNewPassword());
+        user.updatePassword(encodingPassword);
+    }
+
+    @Override
+    public void logout() {
+        redisUtil.deleteData(currentUserUtil.getCurrentUser().getId());
+    }
+
+    // 토큰 만들기
+    private Map<String,String> createToken(SigninDto signinDto){
         String token = jwtTokenProvider.createToken(signinDto.getId());
         String refreshToken = jwtTokenProvider.createRefreshToken();
 
@@ -57,19 +76,5 @@ public class MemberServiceImpl implements MemberService {
         response.put("RefreshToken", "Bearer " + refreshToken);
 
         return response;
-    }
-
-    @Transactional
-    @Override
-    public void update(UpdatePasswordDto updatePasswordDto) {
-        Member findUser = memberRepository.findById(currentUserUtil.getCurrentUserId());
-        if(!passwordEncoder.matches(updatePasswordDto.getOldPassword(), findUser.getPassword())) throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        String encodingPassword = passwordEncoder.encode(updatePasswordDto.getNewPassword());
-        findUser.updatePassword(encodingPassword);
-    }
-
-    @Override
-    public void logout() {
-        redisUtil.deleteData(currentUserUtil.getCurrentUser().getId());
     }
 }
