@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class LibraryManagementController {
 
     @ApiOperation("도서 목록에 책 전체 조회")
     @GetMapping("/findall")
-    public Map<Long,Book> findBookAll(){
+    public List<Book> findBookAll(){
         return libraryManagementService.findBookAll();
     }
 
