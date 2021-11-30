@@ -32,6 +32,8 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
     public void rental(RentalBookDto rentalBookDto) {
         Member currentUser = currentUserUtil.getCurrentUser();
 
+        System.out.println("currentUser = " + currentUser.toString());
+
         Book getBook = bookRepository.findById(rentalBookDto.getBookIdx())
                 .orElseThrow(() -> new IllegalArgumentException("책을 찾을 수 없습니다."));
 
@@ -53,14 +55,10 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
     }
 
     @Override
-    public Map<Long,Rental> findAllRentalBook() {
+    public List<Rental> findAllRentalBook() {
         List<Rental> allBook = rentalRepository.findAll();
         if(allBook.isEmpty()) throw new IllegalArgumentException("대출 이력이 없습니다.");
-        Map<Long,Rental> map = new HashMap<>();
-        for (Rental r : allBook) {
-            map.put(r.getIdx(),r);
-        }
-        return map;
+        return allBook;
     }
 
     @Override

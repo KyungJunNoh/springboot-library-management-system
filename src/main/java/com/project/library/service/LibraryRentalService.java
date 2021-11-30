@@ -12,7 +12,7 @@ public interface LibraryRentalService {
     void rental(RentalBookDto rentalBookDto);
     void returnBook(ReturnBookDto returnBookDto);
     void extensionBook(ExtensionBook extensionBook);
-    Map<Long, Rental> findAllRentalBook();
+    List<Rental> findAllRentalBook();
     Map<Long, Rental> findRentalBook(Long idx);
     List<Rental> findRentalBookByBookName(String book);
 
