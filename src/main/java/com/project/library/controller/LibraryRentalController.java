@@ -1,11 +1,12 @@
 package com.project.library.controller;
 
 import com.project.library.response.CommonResult;
-import com.project.library.response.ResponseService;
+import com.project.library.service.ResponseService;
 import com.project.library.dto.ExtensionBook;
 import com.project.library.dto.RentalBookDto;
 import com.project.library.dto.ReturnBookDto;
 import com.project.library.model.Rental;
+import com.project.library.response.SingleResult;
 import com.project.library.service.LibraryRentalService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,27 +32,27 @@ public class LibraryRentalController {
     @ApiOperation(value = "도서 대출")
     public CommonResult rental(@RequestBody RentalBookDto rentalBookDto) {
         libraryRentalService.rental(rentalBookDto);
-        return responseService.commonResult();
+        return responseService.getSuccessResult();
     }
 
     @DeleteMapping("/returnbook")
     @ApiOperation(value = "책 반납")
     public CommonResult returnBook(@RequestBody ReturnBookDto returnBookDto){
         libraryRentalService.returnBook(returnBookDto);
-        return responseService.commonResult();
+        return responseService.getSuccessResult();
     }
 
     @PutMapping("/extension")
     @ApiOperation(value = "책 반납일 연장")
     public CommonResult extensionBook(@RequestBody ExtensionBook extensionBook){
         libraryRentalService.extensionBook(extensionBook);
-        return responseService.commonResult();
+        return responseService.getSuccessResult();
     }
 
     @GetMapping("/findAllbook")
     @ApiOperation(value = "책 대출 목록 전체 조회")
-    public Map<Long, Rental> findAllRentalBook(){
-        return libraryRentalService.findAllRentalBook();
+    public SingleResult<List<Rental>> findAllRentalBook(){
+        return responseService.getSingleResult(libraryRentalService.findAllRentalBook());
     }
 
     @PostMapping("/findbook/{id}")
