@@ -44,7 +44,7 @@ public class MemberServiceImpl implements MemberService {
     public Map<String,String> signin(SigninDto signinDto) {
         memberRepository.findById(signinDto.getId())
                 .filter(user -> passwordEncoder.matches(signinDto.getPassword(),user.getPassword()))
-                .orElseThrow(() -> new  IllegalArgumentException("아이디 또는 비밀번호가 잘못되었습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 잘못되었습니다."));
 
         return createToken(signinDto);
     }
