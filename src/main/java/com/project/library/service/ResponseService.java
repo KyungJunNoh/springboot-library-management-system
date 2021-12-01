@@ -26,6 +26,7 @@ public class ResponseService {
         }
     }
 
+    // 단일 건의 결과
     public <T> SingleResult<T> getSingleResult(T data){
         SingleResult<T> result = new SingleResult<>();
         result.setData(data);
@@ -33,6 +34,7 @@ public class ResponseService {
         return result;
     }
 
+    // List 건의 결과
     public <T> ListResult<T> getListResult(List<T> list){
         ListResult<T> result = new ListResult<>();
         result.setList(list);
@@ -40,26 +42,28 @@ public class ResponseService {
         return result;
     }
 
-    public CommonResult getFailResult(int code, String message) {
-        CommonResult result = new CommonResult();
-
-        return result.builder()
-                .success(false)
-                .code(code)
-                .message(message)
+    // 성공 Response
+    public CommonResult getSuccessResult(){
+        return new CommonResult().builder()
+                .success(true)
+                .code(CommonResponse.SUCCESS.getCode())
+                .message(CommonResponse.SUCCESS.getMassage())
                 .build();
     }
 
-    public CommonResult getSuccessResult(){
-        CommonResult commonResult = new CommonResult();
-        setSuccessResult(commonResult);
-        return commonResult;
+    // 실패 Response
+    public CommonResult getFailResult() {
+        return new CommonResult().builder()
+                .success(false)
+                .code(CommonResponse.FAIL.getCode())
+                .message(CommonResponse.FAIL.getMassage())
+                .build();
     }
 
     private void setSuccessResult(CommonResult result){
         result.setSuccess(true);
-        result.setCode(result.getCode());
-        result.setMessage(result.getMessage());
+        result.setCode(CommonResponse.SUCCESS.getCode());
+        result.setMessage(CommonResponse.SUCCESS.getMassage());
     }
 
 }
