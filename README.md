@@ -7,7 +7,7 @@
 - IDE : IntelliJ IDEA
 - 프레임 워크 : Spring Boot
 - 데이터 베이스 : H2 Database
-- 사용된 기술 : Spring DataJPA, Spring Security, Swagger, Lombok, Redis, Jwt etc..
+- 사용된 기술 : Spring DataJPA, QueryDSL, Spring Security, Swagger, Lombok, Redis, Jwt etc..
 
 ## 📚 구현된 기능
 > 회원
@@ -29,3 +29,6 @@
 - 도서 반납일 연장
 - 도서 대출 목록 전체 조회
 - 도서 대출 목록 단일 조회
+
+
+- 상태에따른 Response 값을 반환 하게하는 Response 서비스 개발
