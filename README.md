@@ -9,6 +9,9 @@
 - 데이터 베이스 : H2 Database
 - 사용된 기술 : Spring DataJPA, QueryDSL, Spring Security, Swagger, Lombok, Redis, Jwt etc..
 
+## ERD
+![Library_Management_System_ERD](./img/Library_Management_System_ERD.png)
+
 ## 📚 구현된 기능
 > 회원
 - 회원가입
