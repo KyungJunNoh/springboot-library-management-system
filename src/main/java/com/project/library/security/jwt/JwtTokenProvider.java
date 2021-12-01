@@ -33,9 +33,9 @@ public class JwtTokenProvider {
     }
 
 
-    public String createToken(String username) {
-        Claims claims = Jwts.claims().setSubject(username);
-        claims.put("username",username);
+    public String createToken(String id) {
+        Claims claims = Jwts.claims().setSubject(id);
+        claims.put("id",id);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + TOKEN_VALIDATION_SECOND);
@@ -63,11 +63,11 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = myUserDetails.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = myUserDetails.loadUserByUsername(getId(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public String getUsername(String token) {
+    public String getId(String token) {
         return extractAllClaims(token).getSubject();
     }
 

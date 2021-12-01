@@ -1,6 +1,7 @@
 package com.project.library.controller;
 
 import com.project.library.response.CommonResult;
+import com.project.library.response.ListResult;
 import com.project.library.service.ResponseService;
 import com.project.library.dto.ExtensionBook;
 import com.project.library.dto.RentalBookDto;
@@ -14,7 +15,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -51,19 +51,19 @@ public class LibraryRentalController {
 
     @GetMapping("/findAllbook")
     @ApiOperation(value = "책 대출 목록 전체 조회")
-    public SingleResult<List<Rental>> findAllRentalBook(){
-        return responseService.getSingleResult(libraryRentalService.findAllRentalBook());
+    public ListResult<Rental> findAllRentalBook(){
+        return responseService.getListResult(libraryRentalService.findAllRentalBook());
     }
 
     @PostMapping("/findbook/{id}")
     @ApiOperation(value = "책 대출 목록 단일 조회")
-    public Map<Long, Rental> findRentalBook(@PathVariable("id")Long idx){
-        return libraryRentalService.findRentalBook(idx);
+    public SingleResult<Map<Long, Rental>> findRentalBook(@PathVariable("id")Long idx){
+        return responseService.getSingleResult(libraryRentalService.findRentalBook(idx));
     }
 
     @PostMapping("/findBook/bookname/{book}")
     @ApiOperation(value = "책 이름으로 대출 정보 조회")
-    public List<Rental> findRentalBookByBookName(@PathVariable("book")String book){
-        return libraryRentalService.findRentalBookByBookName(book);
+    public ListResult<Rental> findRentalBookByBookName(@PathVariable("book")String book){
+        return responseService.getListResult(libraryRentalService.findRentalBookByBookName(book));
     }
 }
