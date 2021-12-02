@@ -36,9 +36,9 @@ public class LibraryManagementController {
         return responseService.getListResult(libraryManagementService.findBookAll());
     }
 
-    @ApiOperation("도서 목록에 책 단일 조회")
+    @ApiOperation("도서 목록에서 도서 제목으로 도서 조회")
     @PostMapping("/find")
-    public SingleResult<Map<Long, Book>> findBook(@RequestBody FindBookDto findBookDto){
+    public SingleResult findBook(@RequestBody FindBookDto findBookDto){
         return responseService.getSingleResult(libraryManagementService.findBook(findBookDto));
     }
 
