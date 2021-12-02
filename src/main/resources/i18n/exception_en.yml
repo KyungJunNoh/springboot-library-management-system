@@ -1,0 +1,8 @@
+# exception_en.yml
+unKnown:
+  code : "-9999"
+  msg : "An unKnown has occurred."
+
+userAlready:
+  code : "-900"
+  msg : "You are already a member."
