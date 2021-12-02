@@ -3,6 +3,8 @@ package com.project.library.service.impl;
 import com.project.library.dto.ExtensionBook;
 import com.project.library.dto.RentalBookDto;
 import com.project.library.dto.ReturnBookDto;
+import com.project.library.exception.rental.BookLoanHistoryNotFoundException;
+import com.project.library.exception.rental.BookNotFoundException;
 import com.project.library.model.Book;
 import com.project.library.model.Member;
 import com.project.library.model.Rental;
@@ -35,14 +37,14 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
         System.out.println("currentUser = " + currentUser.toString());
 
         Book getBook = bookRepository.findById(rentalBookDto.getBookIdx())
-                .orElseThrow(() -> new IllegalArgumentException("책을 찾을 수 없습니다."));
+                .orElseThrow(BookNotFoundException::new);
 
         rentalRepository.save(rentalBookDto.toEntity(currentUser,getBook));
     }
 
     @Override
     public void returnBook(ReturnBookDto returnBookDto) {
-        if(rentalRepository.findById(returnBookDto.getIdx()) == null) throw new IllegalArgumentException("대출 이력을 찾을 수 없습니다.");
+        if(rentalRepository.findById(returnBookDto.getIdx()) == null) throw new BookLoanHistoryNotFoundException();
         rentalRepository.deleteById(returnBookDto.getIdx());
     }
 
@@ -50,21 +52,21 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
     @Override
     public void extensionBook(ExtensionBook extensionBook) {
         Rental rental = rentalRepository.findById(extensionBook.getIdx())
-                .orElseThrow(() -> new IllegalArgumentException("대출 이력을 찾을 수 없습니다."));
+                .orElseThrow(BookLoanHistoryNotFoundException::new);
         rental.update(rental.getReturn_date().plusDays(7));
     }
 
     @Override
     public List<Rental> findAllRentalBook() {
         List<Rental> allBook = rentalRepository.findAll();
-        if(allBook.isEmpty()) throw new IllegalArgumentException("대출 이력이 없습니다.");
+        if(allBook.isEmpty()) throw new BookLoanHistoryNotFoundException();
         return allBook;
     }
 
     @Override
     public Map<Long, Rental> findRentalBook(Long idx) {
         Rental findBook = rentalRepository.findById(idx)
-                .orElseThrow(() -> new IllegalArgumentException("대출 이력이 없습니다."));
+                .orElseThrow(BookLoanHistoryNotFoundException::new);
         Map<Long,Rental> map = new HashMap<>();
         map.put(idx,findBook);
         return map;
@@ -74,7 +76,7 @@ public class LibraryRentalServiceImpl implements LibraryRentalService {
     public List<Rental> findRentalBookByBookName(String book) {
         List<Rental> rental = rentalCustomRepository.findRentalBookByBookName(book);
 
-        if (rental.isEmpty()) throw new IllegalArgumentException(book + "에 해당하는 책을 찾을 수 없습니다.");
+        if (rental.isEmpty()) throw new BookNotFoundException();
 
         return rental;
     }

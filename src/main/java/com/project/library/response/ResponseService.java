@@ -1,9 +1,8 @@
-package com.project.library.service;
+package com.project.library.response;
 
-import com.project.library.response.CommonResult;
-import com.project.library.response.ListResult;
-import com.project.library.response.SingleResult;
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
+import com.project.library.response.Result.CommonResult;
+import com.project.library.response.Result.ListResult;
+import com.project.library.response.Result.SingleResult;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
-package com.project.library.response;
+package com.project.library.response.Result;
 
+import com.project.library.response.Result.CommonResult;
 import lombok.Getter;
 import lombok.Setter;
 
