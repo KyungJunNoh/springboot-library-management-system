@@ -1,16 +1,14 @@
 package com.project.library.advice;
 
 import com.project.library.exception.UserAlreadyException;
-import com.project.library.response.CommonResult;
-import com.project.library.service.ResponseService;
-import io.swagger.annotations.ResponseHeader;
+import com.project.library.response.Result.CommonResult;
+import com.project.library.response.ResponseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
