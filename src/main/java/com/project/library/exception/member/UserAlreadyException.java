@@ -1,4 +1,4 @@
-package com.project.library.exception;
+package com.project.library.exception.member;
 
 public class UserAlreadyException extends RuntimeException{
 
