@@ -1,11 +1,11 @@
 package com.project.library.controller;
 
 import com.project.library.dto.UpdatePasswordDto;
-import com.project.library.response.CommonResult;
-import com.project.library.service.ResponseService;
+import com.project.library.response.Result.CommonResult;
+import com.project.library.response.ResponseService;
 import com.project.library.dto.MemberDto;
 import com.project.library.dto.SigninDto;
-import com.project.library.response.SingleResult;
+import com.project.library.response.Result.SingleResult;
 import com.project.library.service.MemberService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
