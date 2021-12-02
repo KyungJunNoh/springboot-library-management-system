@@ -1,13 +1,13 @@
 package com.project.library.controller;
 
-import com.project.library.response.CommonResult;
-import com.project.library.response.ListResult;
-import com.project.library.service.ResponseService;
+import com.project.library.response.Result.CommonResult;
+import com.project.library.response.Result.ListResult;
+import com.project.library.response.ResponseService;
 import com.project.library.dto.ExtensionBook;
 import com.project.library.dto.RentalBookDto;
 import com.project.library.dto.ReturnBookDto;
 import com.project.library.model.Rental;
-import com.project.library.response.SingleResult;
+import com.project.library.response.Result.SingleResult;
 import com.project.library.service.LibraryRentalService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

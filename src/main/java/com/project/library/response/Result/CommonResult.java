@@ -1,4 +1,4 @@
-package com.project.library.response;
+package com.project.library.response.Result;
 
 import lombok.*;
 

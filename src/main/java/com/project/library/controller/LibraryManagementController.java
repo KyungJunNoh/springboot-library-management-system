@@ -1,13 +1,13 @@
 package com.project.library.controller;
 
-import com.project.library.response.CommonResult;
-import com.project.library.response.ListResult;
-import com.project.library.service.ResponseService;
+import com.project.library.response.Result.CommonResult;
+import com.project.library.response.Result.ListResult;
+import com.project.library.response.ResponseService;
 import com.project.library.dto.BookAddDto;
 import com.project.library.dto.BookUpdateDto;
 import com.project.library.dto.FindBookDto;
 import com.project.library.model.Book;
-import com.project.library.response.SingleResult;
+import com.project.library.response.Result.SingleResult;
 import com.project.library.service.LibraryManagementService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
