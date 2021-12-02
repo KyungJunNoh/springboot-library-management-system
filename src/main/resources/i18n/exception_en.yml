@@ -3,6 +3,33 @@ unKnown:
   code : "-9999"
   msg : "An unKnown has occurred."
 
+### USER Exception ###
 userAlready:
   code : "-900"
   msg : "You are already a member."
+
+idOrPasswordIncorrect:
+  code : "-910"
+  msg : "ID or password is incorrect"
+
+notMatchPassword:
+  code : "-920"
+  msg : "Passwords do not match."
+
+### Book Exception ###
+bookListAtBookNotFound:
+  code: "-800"
+  msg: "There are no books in the book list."
+
+theNumberOfBookNotFound:
+  code: "-800"
+  msg: "The book by that number could not be found."
+
+### Rental Exception ###
+bookNotFound:
+  code: "-700"
+  msg: "book NotFound"
+
+bookLoanHistoryNotFound:
+  code: "-710"
+  msg: "Loan history not found."
