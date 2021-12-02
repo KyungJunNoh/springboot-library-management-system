@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -35,12 +36,12 @@ public class LibraryManagementServiceImpl implements LibraryManagementService {
     }
 
     @Override
-    public Map<Long, Book> findBook(FindBookDto findBookDto) {
-        List<Book> findBook = bookRepository.findBookByTitle(findBookDto.getTitle());
-        if(findBook.isEmpty()) throw new BookListAtBookNotFoundException();
-        Map<Long,Book> map = new HashMap<>();
-        map.put(findBook.get(0).getIdx(),findBook.get(0));
-        return map;
+    public List<Book> findBook(FindBookDto findBookDto) {
+        List<Book> findBook = bookRepository.findBookByTitle(findBookDto.getTitle())
+                .filter(f -> !f.isEmpty())
+                .orElseThrow(BookListAtBookNotFoundException::new);
+
+        return findBook;
     }
 
     @Transactional
