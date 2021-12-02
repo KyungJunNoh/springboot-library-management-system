@@ -58,6 +58,9 @@ dependencies {
 			"javax.annotation:javax.annotation-api",
 			"com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
 
+	// ** Message yaml ** //
+	implementation 'net.rakugakibox.util:yaml-resource-bundle:1.2'
+
 }
 
 // QueryDSL

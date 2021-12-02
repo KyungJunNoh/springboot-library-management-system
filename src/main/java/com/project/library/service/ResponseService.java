@@ -52,11 +52,11 @@ public class ResponseService {
     }
 
     // 실패 Response
-    public CommonResult getFailResult() {
+    public CommonResult getFailResult(int code, String msg) {
         return new CommonResult().builder()
                 .success(false)
-                .code(CommonResponse.FAIL.getCode())
-                .message(CommonResponse.FAIL.getMassage())
+                .code(code)
+                .message(msg)
                 .build();
     }
 

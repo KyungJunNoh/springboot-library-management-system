@@ -3,6 +3,7 @@ package com.project.library.service.impl;
 import com.project.library.dto.MemberDto;
 import com.project.library.dto.SigninDto;
 import com.project.library.dto.UpdatePasswordDto;
+import com.project.library.exception.UserAlreadyException;
 import com.project.library.model.Member;
 import com.project.library.repository.MemberRepository;
 import com.project.library.security.jwt.JwtTokenProvider;
@@ -36,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
             memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword())); // PasswordEncoder 를 활용하여 비밀번호 인코딩
             memberRepository.save(memberDto.toEntity());
         } else {
-            throw new IllegalArgumentException("이미 존재하는 회원입니다.");
+            throw new UserAlreadyException();
         }
     }
 

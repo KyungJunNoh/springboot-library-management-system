@@ -1,0 +1,8 @@
+# exception_ko.yml
+unKnown:
+  code : "-9999"
+  msg : "알 수 없는 에러가 발생했습니다."
+
+userAlready:
+  code : "-900"
+  msg : "이미 존재하는 회원입니다."
