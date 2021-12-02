@@ -23,34 +23,35 @@ public class LibraryManagementController {
     private final LibraryManagementService libraryManagementService;
     private final ResponseService responseService;
 
-    @ApiOperation("도서 목록에 책 추가")
     @PostMapping("/add")
+    @ApiOperation("도서 목록에 책 추가")
     public CommonResult bookAdd(@RequestBody BookAddDto bookAddDto){
         libraryManagementService.bookAdd(bookAddDto);
         return responseService.getSuccessResult();
     }
 
-    @ApiOperation("도서 목록에 책 전체 조회")
     @GetMapping("/findall")
+    @ApiOperation("도서 목록에 책 전체 조회")
     public ListResult<Book> findBookAll(){
         return responseService.getListResult(libraryManagementService.findBookAll());
     }
 
-    @ApiOperation("도서 목록에 책 단일 조회")
+
     @PostMapping("/find")
-    public SingleResult<Map<Long, Book>> findBook(@RequestBody FindBookDto findBookDto){
-        return responseService.getSingleResult(libraryManagementService.findBook(findBookDto));
+    @ApiOperation("도서 목록에서 도서 제목으로 도서 조회")
+    public SingleResult findBookByTitle(@RequestBody FindBookDto findBookDto){
+        return responseService.getSingleResult(libraryManagementService.findBookByTitle(findBookDto));
     }
 
-    @ApiOperation("도서 정보 수정")
     @PutMapping("/update/{idx}")
+    @ApiOperation("도서 정보 수정")
     public CommonResult update(@PathVariable("idx") Long idx, @RequestBody BookUpdateDto bookUpdateDto){
         libraryManagementService.update(idx,bookUpdateDto);
         return responseService.getSuccessResult();
     }
 
-    @ApiOperation("도서 삭제")
     @DeleteMapping("/delete/{idx}")
+    @ApiOperation("도서 삭제")
     public CommonResult delete(@PathVariable("idx") Long idx){
         libraryManagementService.delete(idx);
         return responseService.getSuccessResult();

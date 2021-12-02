@@ -11,7 +11,7 @@ import java.util.Map;
 public interface LibraryManagementService {
     void bookAdd(BookAddDto bookAddDto);
     List<Book> findBookAll();
-    Map<Long,Book> findBook(FindBookDto findBookDto);
+    List<Book> findBookByTitle(FindBookDto findBookDto);
     void update(Long idx, BookUpdateDto bookUpdateDto);
     void delete(Long idx);
 }
