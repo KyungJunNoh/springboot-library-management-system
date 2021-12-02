@@ -3,7 +3,9 @@ package com.project.library.service.impl;
 import com.project.library.dto.MemberDto;
 import com.project.library.dto.SigninDto;
 import com.project.library.dto.UpdatePasswordDto;
-import com.project.library.exception.UserAlreadyException;
+import com.project.library.exception.member.IdOrPasswordIncorrectException;
+import com.project.library.exception.member.NotMatchPasswordException;
+import com.project.library.exception.member.UserAlreadyException;
 import com.project.library.model.Member;
 import com.project.library.repository.MemberRepository;
 import com.project.library.security.jwt.JwtTokenProvider;
@@ -45,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
     public Map<String,String> signin(SigninDto signinDto) {
         memberRepository.findById(signinDto.getId())
                 .filter(user -> passwordEncoder.matches(signinDto.getPassword(),user.getPassword()))
-                .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 잘못되었습니다."));
+                .orElseThrow(() -> new IdOrPasswordIncorrectException());
 
         return createToken(signinDto);
     }
@@ -54,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void update(UpdatePasswordDto updatePasswordDto) {
         Member user = currentUserUtil.getCurrentUser();
-        if(!passwordEncoder.matches(updatePasswordDto.getOldPassword(), user.getPassword())) throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        if(!passwordEncoder.matches(updatePasswordDto.getOldPassword(), user.getPassword())) throw new NotMatchPasswordException();
         String encodingPassword = passwordEncoder.encode(updatePasswordDto.getNewPassword());
         user.updatePassword(encodingPassword);
     }
