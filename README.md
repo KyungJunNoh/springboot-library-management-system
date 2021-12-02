@@ -33,5 +33,6 @@
 - 도서 대출 목록 전체 조회
 - 도서 대출 목록 단일 조회
 
-
+> 기타 기능
 - 상태에따른 Response 값을 반환 하게하는 Response 서비스 개발
+- Custom Exception 개발
