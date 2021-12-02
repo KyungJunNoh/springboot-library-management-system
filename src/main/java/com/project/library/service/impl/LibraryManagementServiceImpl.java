@@ -36,7 +36,7 @@ public class LibraryManagementServiceImpl implements LibraryManagementService {
     }
 
     @Override
-    public List<Book> findBook(FindBookDto findBookDto) {
+    public List<Book> findBookByTitle(FindBookDto findBookDto) {
         List<Book> findBook = bookRepository.findBookByTitle(findBookDto.getTitle())
                 .filter(f -> !f.isEmpty())
                 .orElseThrow(BookListAtBookNotFoundException::new);
