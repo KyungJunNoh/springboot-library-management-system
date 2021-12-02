@@ -7,8 +7,8 @@ import com.project.library.exception.member.NotMatchPasswordException;
 import com.project.library.exception.member.UserAlreadyException;
 import com.project.library.exception.rental.BookLoanHistoryNotFoundException;
 import com.project.library.exception.rental.BookNotFoundException;
-import com.project.library.response.CommonResult;
-import com.project.library.service.ResponseService;
+import com.project.library.response.ResponseService;
+import com.project.library.response.Result.CommonResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -73,8 +73,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(BookLoanHistoryNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected CommonResult BookLoanHistoryNotFoundException(HttpServletRequest httpServletRequest, Exception e){
-        return responseService.getFailResult(Integer.valueOf(getMessage("bookLoanHistoryNotFound.code")),getMessage("bookLoanHistoryNotFound" +
-                ".msg"));
+        return responseService.getFailResult(Integer.valueOf(getMessage("bookLoanHistoryNotFound.code")),getMessage("bookLoanHistoryNotFound.msg"));
     }
 
 
